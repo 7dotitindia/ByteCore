@@ -20,6 +20,9 @@ importers:
       '@bytescope/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@bytescope/content':
+        specifier: workspace:*
+        version: link:../../packages/content
       '@bytescope/theme':
         specifier: workspace:*
         version: link:../../packages/theme
@@ -70,6 +73,8 @@ importers:
         specifier: ^3.24.1
         version: 3.25.76
 
+  packages/content: {}
+
   packages/theme:
     devDependencies:
       tailwindcss:
@@ -81,6 +86,9 @@ importers:
       '@bytescope/config':
         specifier: workspace:*
         version: link:../config
+      '@bytescope/content':
+        specifier: workspace:*
+        version: link:../content
       '@bytescope/theme':
         specifier: workspace:*
         version: link:../theme

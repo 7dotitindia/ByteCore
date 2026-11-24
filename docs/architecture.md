@@ -48,4 +48,23 @@ caching.
 - [x] `config` package (schema, defaults, presets, resolver)
 - [x] `ui` package: `Header`, `Footer`, `Container`, `Logo`, `ThemeToggle`, `MobileNav`
 - [x] `ui-edition` app: root layout wired to Header/Footer/tokens, placeholder homepage
-- [ ] Editorial homepage, article templates, category pages — Phase 2
+- [x] Editorial homepage, article templates, category pages — Phase 2
+- [ ] Software directory, AI tools directory, reviews, comparisons, tutorials, search — Phase 3
+
+## Phase 2 additions
+
+- `packages/content`: typed `Article`/`Author`/`Category` models, a mock data
+  provider (9 demo articles, 3 authors, 7 categories, 4 spotlighted software
+  entries), and query helpers (`getLatestArticles`, `getTrendingArticles`,
+  `getArticlesByCategory`, `getRelatedArticles`, ...). This is the seam that
+  Phase 5 replaces with Supabase-backed queries without changing page code.
+- `packages/ui` gained the editorial component set: `ArticleCard` (feature /
+  secondary / grid / compact variants), `TrendingList`, `Prose` (renders
+  typed `ContentBlock[]` — paragraph, heading, image, quote, code, list,
+  table), `TableOfContents`, `AuthorByline`/`AuthorBio`, `ShareButtons`,
+  `Breadcrumbs`, `RelatedArticles`, `SoftwareSpotlightCard`,
+  `NewsletterSection`, and `AdSlot` (a labeled placeholder for the Phase 6 ad
+  system, keyed by the slot IDs from the brief).
+- `apps/ui-edition` routes: `/` (full editorial homepage), `/articles/[slug]`
+  (article template), `/[category]` (generic category listing template,
+  statically generated for all 7 categories).

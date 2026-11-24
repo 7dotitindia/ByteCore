@@ -6,6 +6,7 @@
   "types": "./src/index.ts",
   "dependencies": {
     "@bytescope/config": "workspace:*",
+    "@bytescope/content": "workspace:*",
     "@bytescope/theme": "workspace:*",
     "lucide-react": "^0.468.0"
   },

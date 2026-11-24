@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "bytescope-ui-edition",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@bytescope/ui-edition", "dev"],
+      "port": 3000
+    }
+  ]
+}

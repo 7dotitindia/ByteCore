@@ -1,0 +1,35 @@
+import { siteConfigSchema, type SiteConfig } from "./schema";
+
+export const defaultConfig: SiteConfig = siteConfigSchema.parse({
+  siteName: "ByteScope",
+  tagline: "Technology, in perspective.",
+  logo: "/brand/logo.svg",
+  favicon: "/favicon.ico",
+  colors: { primary: "#111111", accent: "#E87535" },
+  typography: { sans: "Inter", serif: "Source Serif 4" },
+  radius: "sm",
+  headerLayout: "standard",
+  footerLayout: "standard",
+  homepageLayout: "editorial",
+  navigation: [
+    { label: "Technology", href: "/technology" },
+    { label: "Software", href: "/software" },
+    { label: "AI Tools", href: "/ai-tools" },
+    { label: "Reviews", href: "/reviews" },
+    { label: "Comparisons", href: "/comparisons" },
+    { label: "Tutorials", href: "/tutorials" },
+  ],
+  socialLinks: [],
+  defaultTheme: "light",
+  homepageSections: [
+    { id: "hero", visible: true },
+    { id: "latest", visible: true },
+    { id: "trending", visible: true },
+    { id: "software-spotlight", visible: true },
+    { id: "ai-innovation", visible: true },
+    { id: "reviews-comparisons", visible: true },
+    { id: "tutorials", visible: true },
+    { id: "newsletter", visible: true },
+  ],
+  adsEnabled: true,
+});

@@ -1,0 +1,50 @@
+@import "@bytescope/theme/tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+}
+
+.tiptap {
+  outline: none;
+  min-height: 320px;
+}
+
+.tiptap p {
+  margin: 0.75em 0;
+}
+
+.tiptap h2 {
+  font-size: 1.5rem;
+  margin: 1em 0 0.5em;
+}
+
+.tiptap h3 {
+  font-size: 1.25rem;
+  margin: 1em 0 0.5em;
+}
+
+.tiptap blockquote {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.tiptap pre {
+  background: var(--color-graphite);
+  color: #f5f1eb;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+}
+
+.tiptap code {
+  background: var(--color-border);
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}

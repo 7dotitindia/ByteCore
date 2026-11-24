@@ -12,6 +12,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@bytescope/demo-sites", "dev"],
       "port": 3001
+    },
+    {
+      "name": "bytescope-pro-edition",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@bytescope/pro-edition", "dev"],
+      "port": 3002
     }
   ]
 }

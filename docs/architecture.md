@@ -51,7 +51,47 @@ caching.
 - [x] Editorial homepage, article templates, category pages — Phase 2
 - [x] Software directory, AI tools directory, reviews, comparisons, tutorials, search — Phase 3
 - [x] Theme presets applied end-to-end, three demo sites, richer mock data provider — Phase 4
-- [ ] Supabase, database migrations, auth, admin dashboard, CMS — Phase 5
+- [x] Supabase, database migrations, auth, admin dashboard, CMS — Phase 5
+- [ ] Advertisement management, newsletter, analytics, SEO — Phase 6
+
+## Phase 5 additions
+
+- `supabase/migrations/0001_init.sql`: every table from the brief's schema
+  (users, authors, categories, tags, articles + join tables, media, software
+  + features/categories, reviews, comparisons + items, the full ad stack,
+  newsletter_subscribers, site_settings, redirects, audit_logs), UUID PKs,
+  FKs, indexes, RLS enabled on every table, and `is_staff()`/`is_admin()`
+  security-definer helpers so policies on `public.users` don't recurse. A
+  trigger mirrors new Supabase Auth users into `public.users` as `viewer`.
+- `supabase/seed.sql`: a local-only admin login plus sample authors,
+  categories, software and one article — never run against a production
+  project (documented in `docs/supabase-setup.md`).
+- `packages/data`: a thin `createClient(url, key)` wrapper over
+  `@supabase/supabase-js` plus typed query functions (`listArticles`,
+  `createArticle`, `getDashboardOverview`, ...) that take a client instance
+  as their first argument, so the same functions work from the browser
+  client, the server client, or a future service-role client without
+  rewriting queries.
+- `apps/pro-edition` (new Next.js app, port 3002): Supabase Auth
+  (`@supabase/ssr`, cookie-based sessions, middleware-enforced `/admin` auth
+  guard), an admin shell with a sidebar covering every brief-listed section,
+  a dashboard with live counts from the database, a full Articles flow
+  (list, Tiptap-based editor with SEO/author/category/featured fields,
+  draft/scheduled/published), and list+create pages for categories, tags,
+  authors, software, newsletter subscribers, and user roles. A Site
+  Customization page writes to `site_settings`, demonstrating the
+  admin-override layer on top of `packages/config`'s default/preset
+  resolution. Media upload, full ad campaign-to-slot assignment, analytics
+  and sitewide SEO are left as honest placeholders pointing at Phase 6 —
+  the schema already supports them, but the admin UI doesn't exist yet.
+- **Not verified against a live database.** Docker wasn't available to run
+  Supabase locally in this environment, and no hosted project credentials
+  were provided, so the SQL and Next.js code are correct by construction and
+  by build/type-check, but the actual migration run, RLS behavior, and
+  data-backed admin pages haven't been exercised against real Postgres. The
+  login page and the middleware's redirect-when-unauthenticated behavior
+  were verified in-browser without a live connection. See
+  `docs/supabase-setup.md` to connect a real project and verify the rest.
 
 ## Phase 4 additions
 

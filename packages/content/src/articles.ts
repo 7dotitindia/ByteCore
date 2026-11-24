@@ -138,6 +138,7 @@ export const articles: Article[] = [
     publishedAt: "2026-10-14",
     readingTime: 4,
     featuredImage: { src: img("fieldnotes-review"), alt: "A distraction-free writing interface on a laptop screen" },
+    relatedSoftware: "fieldnotes",
     content: [
       { type: "paragraph", text: "Fieldnotes is a demonstration review for this template — illustrative content, not a verified product assessment." },
       { type: "paragraph", text: "The pitch is almost defiantly plain: a single column, a monospaced font by default, and a word count that only appears when you ask for it." },
@@ -208,4 +209,8 @@ export function getRelatedArticles(article: Article, limit = 3) {
   return articles
     .filter((a) => a.slug !== article.slug && a.category === article.category)
     .slice(0, limit);
+}
+
+export function getReviewsForSoftware(softwareSlug: string) {
+  return articles.filter((a) => a.relatedSoftware === softwareSlug);
 }

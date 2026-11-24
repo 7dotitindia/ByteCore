@@ -1,7 +1,6 @@
 export type CategorySlug =
   | "technology"
   | "ai-innovation"
-  | "software"
   | "reviews"
   | "comparisons"
   | "tutorials"
@@ -45,4 +44,47 @@ export interface Article {
   featured?: boolean;
   trendingRank?: number;
   content: ContentBlock[];
+  relatedSoftware?: string;
+}
+
+export type Platform = "web" | "macos" | "windows" | "linux" | "ios" | "android";
+export type PricingModel = "Free" | "Freemium" | "Paid";
+
+export interface Screenshot {
+  src: string;
+  alt: string;
+}
+
+export interface SoftwareProduct {
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  category: string;
+  platforms: Platform[];
+  pricingModel: PricingModel;
+  priceFrom?: string;
+  website: string;
+  screenshots: Screenshot[];
+  features: string[];
+  pros: string[];
+  cons: string[];
+  alternatives: string[];
+  spotlight?: boolean;
+}
+
+export interface AiTool {
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  category: string;
+  pricingModel: PricingModel;
+  priceFrom?: string;
+  website: string;
+  screenshots: Screenshot[];
+  features: string[];
+  pros: string[];
+  cons: string[];
+  alternatives: string[];
 }

@@ -4,8 +4,8 @@
 |---|---|---|
 | 1 | Monorepo, design tokens, config engine, global layout, header/footer | **Done** |
 | 2 | Editorial homepage, article layouts, category pages | **Done** |
-| 3 | Software directory, AI tools directory, reviews, comparisons, tutorials, search | Next |
-| 4 | Theme presets, three demo sites, mock data provider | Pending |
+| 3 | Software directory, AI tools directory, reviews, comparisons, tutorials, search | **Done** |
+| 4 | Theme presets, three demo sites, mock data provider | Next |
 | 5 | Supabase, database migrations, auth, admin dashboard, CMS | Pending |
 | 6 | Advertisement management, newsletter, analytics, SEO | Pending |
 | 7 | Testing, accessibility, performance, security, documentation | Pending |

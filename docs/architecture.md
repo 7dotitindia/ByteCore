@@ -49,7 +49,31 @@ caching.
 - [x] `ui` package: `Header`, `Footer`, `Container`, `Logo`, `ThemeToggle`, `MobileNav`
 - [x] `ui-edition` app: root layout wired to Header/Footer/tokens, placeholder homepage
 - [x] Editorial homepage, article templates, category pages — Phase 2
-- [ ] Software directory, AI tools directory, reviews, comparisons, tutorials, search — Phase 3
+- [x] Software directory, AI tools directory, reviews, comparisons, tutorials, search — Phase 3
+- [ ] Theme presets applied end-to-end, three demo sites, richer mock data provider — Phase 4
+
+## Phase 3 additions
+
+- `packages/content` gained `SoftwareProduct` and `AiTool` models (features,
+  pros/cons, platforms, pricing, screenshots, alternatives), a
+  `relatedSoftware` link on `Article` (powers "related reviews" on a
+  software profile), and `searchContent()`, a unified substring search
+  across articles, software and AI tools.
+- `packages/ui` gained directory primitives: `DirectoryCard`, `PricingBadge`,
+  `ScreenshotGallery`, `ProsConsList`, `AlternativesList`, `SearchBox`, and
+  a generic `DirectoryFilters` (search + category + pricing, client-side).
+  `SoftwareDirectory` and `AiToolsDirectory` are self-contained client
+  components wrapping `DirectoryFilters` with their own data — kept as
+  dedicated components rather than passed as server-to-client function
+  props, which React Server Components cannot serialize.
+- `apps/ui-edition` routes: `/software` (directory) + `/software/[slug]`
+  (profile: pricing, platforms, features, screenshots, pros/cons,
+  alternatives, related reviews), `/ai-tools` + `/ai-tools/[slug]`
+  (mirrors software, no platforms), `/search` (global search, reads the
+  initial query from `?q=`). Reviews, comparisons and tutorials content
+  continues to reuse the Phase 2 article template and category
+  listing — only software and AI tools needed dedicated directory/profile
+  templates, per the brief's "reusable templates" guidance.
 
 ## Phase 2 additions
 

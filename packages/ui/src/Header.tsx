@@ -33,13 +33,13 @@ export function Header({
           </nav>
 
           <div className="flex items-center gap-3">
-            <button
-              type="button"
+            <a
+              href="/search"
               aria-label="Search"
               className="hidden h-9 w-9 items-center justify-center text-text-secondary transition-colors hover:text-text lg:flex"
             >
               <Search size={16} />
-            </button>
+            </a>
             <ThemeToggle />
             <MobileNav links={navigation} />
           </div>

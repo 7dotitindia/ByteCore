@@ -1,17 +1,18 @@
 import {
+  aiTools,
   getArticlesByCategory,
   getFeaturedArticle,
   getLatestArticles,
+  getSpotlightSoftware,
   getTrendingArticles,
-  softwareSpotlight,
 } from "@bytescope/content";
 import {
   AdSlot,
   ArticleCard,
   Container,
+  DirectoryCard,
   NewsletterSection,
   SectionHeading,
-  SoftwareSpotlightCard,
   TrendingList,
 } from "@bytescope/ui";
 
@@ -21,7 +22,9 @@ export default function HomePage() {
   const secondary = latest.slice(0, 2);
   const latestGrid = latest.slice(2, 8);
   const trending = getTrendingArticles();
+  const spotlightSoftware = getSpotlightSoftware();
   const aiArticles = getArticlesByCategory("ai-innovation");
+  const spotlightAiTools = aiTools.slice(0, 3);
   const reviews = getArticlesByCategory("reviews");
   const comparisons = getArticlesByCategory("comparisons");
   const tutorials = getArticlesByCategory("tutorials");
@@ -62,8 +65,16 @@ export default function HomePage() {
       <Container className="py-14">
         <SectionHeading title="Software Spotlight" href="/software" />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {softwareSpotlight.map((entry) => (
-            <SoftwareSpotlightCard key={entry.slug} entry={entry} />
+          {spotlightSoftware.map((product) => (
+            <DirectoryCard
+              key={product.slug}
+              href={`/software/${product.slug}`}
+              name={product.name}
+              tagline={product.tagline}
+              category={product.category}
+              pricingModel={product.pricingModel}
+              priceFrom={product.priceFrom}
+            />
           ))}
         </div>
       </Container>
@@ -75,6 +86,25 @@ export default function HomePage() {
             {aiArticles.map((article) => (
               <ArticleCard key={article.slug} article={article} variant="grid" />
             ))}
+          </div>
+
+          <div className="mt-12 border-t border-border pt-10">
+            <h3 className="mb-6 text-sm font-medium uppercase tracking-wide text-text-secondary">
+              AI tools worth trying
+            </h3>
+            <div className="grid gap-5 sm:grid-cols-3">
+              {spotlightAiTools.map((tool) => (
+                <DirectoryCard
+                  key={tool.slug}
+                  href={`/ai-tools/${tool.slug}`}
+                  name={tool.name}
+                  tagline={tool.tagline}
+                  category={tool.category}
+                  pricingModel={tool.pricingModel}
+                  priceFrom={tool.priceFrom}
+                />
+              ))}
+            </div>
           </div>
         </Container>
       </div>

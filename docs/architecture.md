@@ -50,7 +50,31 @@ caching.
 - [x] `ui-edition` app: root layout wired to Header/Footer/tokens, placeholder homepage
 - [x] Editorial homepage, article templates, category pages — Phase 2
 - [x] Software directory, AI tools directory, reviews, comparisons, tutorials, search — Phase 3
-- [ ] Theme presets applied end-to-end, three demo sites, richer mock data provider — Phase 4
+- [x] Theme presets applied end-to-end, three demo sites, richer mock data provider — Phase 4
+- [ ] Supabase, database migrations, auth, admin dashboard, CMS — Phase 5
+
+## Phase 4 additions
+
+- `packages/config` gained `demoSites`: three `SiteConfig`s built through the
+  existing `resolveConfig(preset, overrides)` resolver — Signal (editorial
+  preset, orange), Wirefeed (minimal-blog preset repurposed as a news
+  layout, blue), Stackfind (software-hub preset, green) — proving the
+  default → preset → overrides resolution end-to-end rather than only in
+  type definitions.
+- `apps/demo-sites` (new Next.js app, port 3001): a picker page listing the
+  three demos, and `app/[site]/layout.tsx` + `app/[site]/page.tsx` that
+  render each demo's Header/Footer/homepage from its `SiteConfig` alone —
+  siteName, tagline, accent color (applied as a CSS custom property
+  override, no per-site CSS), navigation, and `homepageLayout`
+  ("editorial" | "news" | "directory", each a distinct composition of the
+  same `@bytescope/ui` components and `@bytescope/content` mock data).
+  No page content or components are forked per demo.
+- Known scope limit: demo nav links point to in-page anchors and the
+  article/software cards link to `ui-edition`'s routes (`/articles/...`,
+  `/software/...`), which don't exist inside `demo-sites` — acceptable for
+  a homepage-configuration showcase, but full cross-page browsing per demo
+  would need either shared route handlers or reverse-proxying the two apps
+  together, which is out of scope for this phase.
 
 ## Phase 3 additions
 

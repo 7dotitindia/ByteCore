@@ -15,6 +15,55 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
 
+  apps/demo-sites:
+    dependencies:
+      '@bytescope/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@bytescope/content':
+        specifier: workspace:*
+        version: link:../../packages/content
+      '@bytescope/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+      '@bytescope/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      lucide-react:
+        specifier: ^0.468.0
+        version: 0.468.0(react@19.3.1)
+      next:
+        specifier: ^15.1.3
+        version: 15.5.29(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      react:
+        specifier: ^19.0.0
+        version: 19.3.1
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.3.1(react@19.3.1)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.2
+        version: 22.20.5
+      '@types/react':
+        specifier: ^19.0.2
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: ^19.0.2
+        version: 19.3.0(@types/react@19.3.0)
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.7.0(postcss@8.5.33)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.5.33
+      tailwindcss:
+        specifier: ^3.4.17
+        version: 3.4.19
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+
   apps/ui-edition:
     dependencies:
       '@bytescope/config':

@@ -136,7 +136,7 @@ export default function HomePage() {
         </div>
       </Container>
 
-      <NewsletterSection />
+      <NewsletterSection endpoint={process.env.NEXT_PUBLIC_NEWSLETTER_ENDPOINT} />
     </>
   );
 }

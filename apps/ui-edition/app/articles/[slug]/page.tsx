@@ -8,6 +8,8 @@ import {
   getCategory,
   getRelatedArticles,
 } from "@bytescope/content";
+import { defaultConfig } from "@bytescope/config";
+import { JsonLd, articleSchema, breadcrumbSchema } from "@bytescope/seo";
 import {
   AdSlot,
   AuthorBio,
@@ -20,6 +22,8 @@ import {
   ShareButtons,
   TableOfContents,
 } from "@bytescope/ui";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? defaultConfig.siteUrl;
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -36,6 +40,7 @@ export async function generateMetadata({
   return {
     title: article.title,
     description: article.excerpt,
+    alternates: { canonical: `${siteUrl}/articles/${article.slug}` },
     openGraph: {
       title: article.title,
       description: article.excerpt,
@@ -60,9 +65,33 @@ export default async function ArticlePage({
   if (!author || !category) notFound();
 
   const related = getRelatedArticles(article);
+  const articleUrl = `${siteUrl}/articles/${article.slug}`;
 
   return (
     <article>
+      <JsonLd
+        data={articleSchema({
+          headline: article.title,
+          description: article.excerpt,
+          url: articleUrl,
+          image: article.featuredImage.src,
+          datePublished: article.publishedAt,
+          dateModified: article.updatedAt,
+          authorName: author.name,
+          authorUrl: `${siteUrl}/authors/${author.slug}`,
+          publisherName: defaultConfig.siteName,
+          publisherLogo: `${siteUrl}${defaultConfig.logo}`,
+          isNews: article.category === "news",
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: siteUrl },
+          { name: category.name, url: `${siteUrl}/${category.slug}` },
+          { name: article.title, url: articleUrl },
+        ])}
+      />
+
       <Container className="pt-8">
         <Breadcrumbs
           items={[

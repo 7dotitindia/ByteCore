@@ -52,7 +52,50 @@ caching.
 - [x] Software directory, AI tools directory, reviews, comparisons, tutorials, search — Phase 3
 - [x] Theme presets applied end-to-end, three demo sites, richer mock data provider — Phase 4
 - [x] Supabase, database migrations, auth, admin dashboard, CMS — Phase 5
-- [ ] Advertisement management, newsletter, analytics, SEO — Phase 6
+- [x] Advertisement management, newsletter, analytics, SEO — Phase 6
+- [ ] Testing, accessibility, performance, security, documentation — Phase 7
+
+## Phase 6 additions
+
+- `packages/seo` (new): JSON-LD builders (`organizationSchema`,
+  `articleSchema`/`NewsArticle`, `softwareApplicationSchema`,
+  `personSchema`, `breadcrumbSchema`) and a `JsonLd` script component. Note
+  the schema builder file is named `schemas.ts`, not `jsonld.ts` — it
+  originally was, but Windows' case-insensitive filesystem collided it with
+  `JsonLd.tsx` during the build; renaming was the fix.
+- `packages/config`: `SiteConfig` gained `analytics` (`provider`/`id`),
+  `adsense` (`publisherId`), and `siteUrl` fields — never a hardcoded
+  publisher ID, always sourced from config/env.
+- `apps/ui-edition`: `app/sitemap.ts` and `app/robots.ts` (Next's built-in
+  generators, enumerating every article/category/software/AI
+  tool/author), `metadataBase` + title template + OG/Twitter defaults and
+  an Organization JSON-LD script in the root layout, canonical URLs +
+  Article/SoftwareApplication/BreadcrumbList JSON-LD on their respective
+  detail pages, a new `/authors/[slug]` profile page with Person JSON-LD
+  (this route was referenced by `AuthorByline`/`AuthorBio` since Phase 2 but
+  never existed until now), basic pagination on category listings, and an
+  env-driven `AnalyticsScript` component (Plausible or GA4, opt-in, renders
+  nothing when unconfigured).
+- `NewsletterSection` (`packages/ui`) now does a real `fetch` POST to an
+  optional `endpoint` prop with loading/success/error states, falling back
+  to a demo-only success state when no endpoint is configured — so the
+  Frontend Edition still works standalone with mock data, per its own
+  spec, while a connected deployment can pass a real endpoint.
+- `apps/pro-edition`: `app/api/newsletter/route.ts` (public POST endpoint,
+  CORS-open for local cross-port dev — tighten `Access-Control-Allow-Origin`
+  to your real domain in production), and real admin forms for ad
+  campaigns, creatives (auto-wrapped in an `advertisements` row), and
+  slot assignments, plus a `getActiveAdForSlot` query for a future
+  connected public site to call. The Analytics and SEO admin pages became
+  real settings forms writing to `site_settings` (previously Phase 5
+  placeholders), each documented as the source of truth once a public site
+  reads `site_settings` directly — today the Frontend Edition reads
+  equivalent values from environment variables instead.
+- Same verification caveat as Phase 5: the ad/newsletter/analytics/SEO
+  **admin** pages (pro-edition) are correct by build/type-check only, not
+  verified against a live Supabase project. The **public-facing** SEO work
+  in `apps/ui-edition` (sitemap, robots.txt, structured data, author page,
+  pagination, newsletter demo state) was verified in-browser.
 
 ## Phase 5 additions
 

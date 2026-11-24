@@ -58,6 +58,21 @@ export const siteConfigSchema = z.object({
     .default([]),
 
   adsEnabled: z.boolean().default(true),
+
+  analytics: z
+    .object({
+      provider: z.enum(["none", "plausible", "ga4"]).default("none"),
+      id: z.string().optional(),
+    })
+    .default({ provider: "none" }),
+
+  adsense: z
+    .object({
+      publisherId: z.string().optional(),
+    })
+    .default({}),
+
+  siteUrl: z.string().url().default("https://example.com"),
 });
 
 export type SiteConfig = z.infer<typeof siteConfigSchema>;

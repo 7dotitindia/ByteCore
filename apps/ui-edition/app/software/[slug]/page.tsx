@@ -7,6 +7,8 @@ import {
   getSoftwareAlternatives,
   getReviewsForSoftware,
 } from "@bytescope/content";
+import { defaultConfig } from "@bytescope/config";
+import { JsonLd, breadcrumbSchema, softwareApplicationSchema } from "@bytescope/seo";
 import {
   AdSlot,
   AlternativesList,
@@ -17,6 +19,8 @@ import {
   RelatedArticles,
   ScreenshotGallery,
 } from "@bytescope/ui";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? defaultConfig.siteUrl;
 
 export function generateStaticParams() {
   return softwareProducts.map((s) => ({ slug: s.slug }));
@@ -30,7 +34,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = getSoftwareProduct(slug);
   if (!product) return {};
-  return { title: product.name, description: product.tagline };
+  return {
+    title: product.name,
+    description: product.tagline,
+    alternates: { canonical: `${siteUrl}/software/${product.slug}` },
+  };
 }
 
 export default async function SoftwareDetailPage({
@@ -49,9 +57,27 @@ export default async function SoftwareDetailPage({
     href: `/software/${a.slug}`,
   }));
   const relatedReviews = getReviewsForSoftware(product.slug);
+  const productUrl = `${siteUrl}/software/${product.slug}`;
 
   return (
     <article>
+      <JsonLd
+        data={softwareApplicationSchema({
+          name: product.name,
+          description: product.description,
+          url: productUrl,
+          category: product.category,
+          price: product.pricingModel === "Free" ? "0" : undefined,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: siteUrl },
+          { name: "Software", url: `${siteUrl}/software` },
+          { name: product.name, url: productUrl },
+        ])}
+      />
+
       <Container className="py-10">
         <Breadcrumbs
           items={[{ label: "Home", href: "/" }, { label: "Software", href: "/software" }, { label: product.name }]}

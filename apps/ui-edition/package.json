@@ -12,6 +12,7 @@
   "dependencies": {
     "@bytescope/config": "workspace:*",
     "@bytescope/content": "workspace:*",
+    "@bytescope/seo": "workspace:*",
     "@bytescope/theme": "workspace:*",
     "@bytescope/ui": "workspace:*",
     "lucide-react": "^0.468.0",

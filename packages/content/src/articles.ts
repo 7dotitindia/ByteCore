@@ -211,6 +211,10 @@ export function getRelatedArticles(article: Article, limit = 3) {
     .slice(0, limit);
 }
 
+export function getArticlesByAuthor(authorSlug: string) {
+  return getLatestArticles().filter((a) => a.author === authorSlug);
+}
+
 export function getReviewsForSoftware(softwareSlug: string) {
   return articles.filter((a) => a.relatedSoftware === softwareSlug);
 }
